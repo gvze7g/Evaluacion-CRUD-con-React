@@ -5,8 +5,8 @@ const ProductForm = ({ initialData = {}, onSubmit, submitting = false, onClose, 
   // Si initialData viene con valores, se rellena el formulario con ellos.
   const [form, setForm] = useState(() => ({
     title: '',
-    body: '',
     userId: '',
+    body: '',
     ...initialData
   }))
   const isEditing = !!initialData?.id // Detecta si estamos editando un producto existente.
@@ -79,13 +79,14 @@ const ProductForm = ({ initialData = {}, onSubmit, submitting = false, onClose, 
           <div>
             <label className="block text-sm font-medium text-slate-700">Usuario Id</label>
             <input
-              name="userID"
+              name="userId"
               type="number"
-              step="0.01"
+              step="0"
               value={form.userId}
               onChange={handleChange}
               placeholder="0"
               className="mt-1 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none focus:border-indigo-500 focus:bg-white"
+              required
             />
           </div>
 

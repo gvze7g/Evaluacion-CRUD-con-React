@@ -125,19 +125,19 @@ const Products = () => {
 
       if (!response.ok) {
         const text = await response.text()
-        throw new Error(text || 'Error actualizando producto')
+        throw new Error(text || 'Error actualizando post')
       }
 
       const data = await response.json()
       setProducts((prev) =>
         prev.map((p) => (p.id === editingProduct.id ? { ...data, source: 'api' } : p))
       )
-      setProductSuccess('Producto actualizado correctamente.')
+      setProductSuccess('Post actualizado correctamente.')
       setShowProductForm(false)
       setEditingProduct(null)
-      console.log('fakestore updated product:', data)
+      console.log('API updated product:', data)
     } catch (err) {
-      setProductError(err.message || 'No se pudo actualizar el producto')
+      setProductError(err.message || 'No se pudo actualizar el post')
     } finally {
       setProductSubmitting(false)
     }
@@ -160,7 +160,7 @@ const Products = () => {
       if (product?.source !== 'api') {
         // Si el producto es local, simplemente lo eliminamos del estado.
         setProducts((prev) => prev.filter((p) => p.id !== productToDelete))
-        setProductSuccess('Producto eliminado correctamente.')
+        setProductSuccess('Post eliminado correctamente.')
         setProductToDelete(null)
         return
       }
@@ -171,14 +171,14 @@ const Products = () => {
 
       if (!response.ok) {
         const text = await response.text()
-        throw new Error(text || 'Error eliminando producto')
+        throw new Error(text || 'Error eliminando post')
       }
 
       setProducts((prev) => prev.filter((p) => p.id !== productToDelete))
-      setProductSuccess('Producto eliminado correctamente.')
+      setProductSuccess('Post eliminado correctamente.')
       setProductToDelete(null)
     } catch (err) {
-      setProductError(err.message || 'No se pudo eliminar el producto')
+      setProductError(err.message || 'No se pudo eliminar el post')
       setProductToDelete(null)
     }
   }
@@ -217,12 +217,12 @@ const Products = () => {
       const data = await response.json()
       const newProduct = { ...data, source: 'local' }
       setProducts((prev) => [newProduct, ...(prev || [])])
-      setProductSuccess('Producto creado correctamente. ID: ' + (newProduct.id || '—'))
+      setProductSuccess('Post creado correctamente. ID: ' + (newProduct.id || '—'))
       setShowProductForm(false)
       setEditingProduct(null)
       setCurrentPage(1)
     } catch (err) {
-      setProductError(err.message || 'No se pudo crear el producto')
+      setProductError(err.message || 'No se pudo crear el post')
     } finally {
       setProductSubmitting(false)
     }
@@ -288,7 +288,7 @@ const Products = () => {
 
         <ConfirmModal
           title="Confirmar eliminación"
-          message="¿Estás seguro de que deseas eliminar este producto? Esta acción no se puede deshacer."
+          message="¿Estás seguro de que deseas eliminar este post? Esta acción no se puede deshacer."
           isOpen={showDeleteConfirm}
           isDangerous={true}
           onConfirm={confirmDeleteProduct}
@@ -302,7 +302,7 @@ const Products = () => {
 
           <div className="p-4">
             {loading ? (
-              <div className="flex items-center justify-center py-20 text-slate-500">Cargando productos...</div>
+              <div className="flex items-center justify-center py-20 text-slate-500">Cargando posts...</div>
             ) : error ? (
               <div className="rounded-2xl bg-rose-50 px-4 py-6 text-rose-700">{error}</div>
             ) : (
